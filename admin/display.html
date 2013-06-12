@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>解锁学生成绩</title>
+<style type="text/css">
+h1{text-align:center}
+.head{font-size:18px; float:left; margin:10px;}
+.head1{font-size:14px; color:#F00; float:right; margin:10px 400px 10px 10px;}
+tr{ background-color:#FFF;}
+.bot{font-size:14px; color:#F00;}
+</style>
+</head>
+<body>
+   <form method="post" action="">
+     <h1 class="title">解锁学生成绩</h1>
+     <div class="head">
+     <label>请选择年级：</label>
+         <select name="">
+           <option>初一</option>
+           <option>初二</option>
+           <option>初三</option>
+         </select>
+         <label name="ClassID">请选择班级：</label>
+         <select name="classID">
+           <option>一班</option>
+           <option>二班</option>
+           <option>三班</option>
+           <option>四班</option>
+           <option>五班</option>
+           <option>六班</option>
+           <option>七班</option>
+           <option>八班</option>
+           <option>九班</option>
+           <option>十班</option>
+           <option>十一班</option>
+           <option>十二班</option>
+         </select>
+         <label name="Term">请选择学期：</label>
+         <select name="">
+           <option>2012-2013-1</option>
+           <option>2012-2013-2</option>
+         </select>
+         </div>
+           <div class="head1">
+         <input type="checkbox" checked="checked"/>
+    表示解锁当前学生的当前成绩
+    <input type="checkbox" />
+    表示不解锁
+           </div>
+       
+       <br />
+       
+       
+       <table  border="0" width="100%" cellspacing="1" cellpadding="0" bgcolor="#000">
+      
+  <tr>
+    <th rowspan="2" scope="col" name="ID">编号</th>
+    <th rowspan="2" scope="col" name="StudentID">学号</th>
+    <th rowspan="2" scope="col" name="StudentName">姓名</th>
+    <th scope="col" colspan="2" name="Chinese">语文</th>
+    <th scope="col" colspan="2" name="Math">数学</th>
+    <th scope="col" colspan="2" name="English">英语</th>
+    <th scope="col" colspan="2" name="Politics">政治</th>
+    <th scope="col" colspan="2" name="History">历史</th>
+    <th scope="col" colspan="2" name="Geography">地理</th>
+    <th scope="col" colspan="2" name="Biological">生物</th>
+    <th scope="col" colspan="2" name="Phycical">物理</th>
+    <th scope="col" colspan="2" name="Chemistry">化学</th>
+  </tr>
+  <tr>
+    <td>成绩</td>
+    <td><p>选中可解锁</p></td>
+   <td>成绩</td>
+    <td>选中可解锁</td>
+    <td>成绩</td>
+    <td>选中可解锁</td>
+    <td>成绩</td>
+    <td>选中可解锁</td>
+    <td>成绩</td>
+    <td>选中可解锁</td>
+    <td>成绩</td>
+    <td>选中可解锁</td>
+    <td>成绩</td>
+    <td>选中可解锁</td>
+    <td>成绩</td>
+    <td>选中可解锁</td>
+    <td>成绩</td>
+    <td>选中可解锁</td>
+  </tr>
+  <tr>
+               <td>1</td>
+               <td>20150101</td>
+               <td>张三</td>
+               <td>98</td>
+               <td><input type="checkbox" value="Chinese"/></td>
+               <td>98</td>
+               <td><input type="checkbox" value="Math"/></td>
+               <td>98</td>
+               <td><input type="checkbox" value="English"/></td>
+               <td>98</td>
+               <td><input type="checkbox" value="Politics"/></td>
+               <td>98</td>
+               <td><input type="checkbox" value="History"/></td>
+              <td>98</td>
+               <td><input type="checkbox" value="Geography"/></td>
+               <td>98</td>
+               <td><input type="checkbox" value="Biological"/></td>
+               <td>98</td>
+               <td><input type="checkbox" value="Phycical"/></td>
+               <td>98</td>
+               <td><input type="checkbox" value="Chemistry"/></td>
+   </tr>
+</table>
+    <label> 本页共**条记录，选中**个要修改的成绩</label>
+    <br/>
+    <label class="bot">是否确定解锁选定项：</label>
+    <input type="submit" value="解锁"/>
+   </form>
+</body>
+</html>

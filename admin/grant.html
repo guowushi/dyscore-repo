@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> New Document </title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta charset = "utf-8" />
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+	<script type="text/javascript" src="../js/jquery.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var tt;
+			$(".xuanze").click(function(){
+				$(".teacher").show();
+
+			 });
+			 function choose(){
+				
+				$(this).prev("input").value = tt;
+				
+			 }
+
+
+			 $("ul li").click(function(){
+						$(".teacher").hide("slow");
+						tt = $(this).text();
+						alert(tt);
+						$(this).detach();
+						setTimeout("choose()",300);
+			});
+
+			 $(".cc1").mouseover(function(){
+					tab('c1');
+				
+			 });
+			 $(".cc2").mouseover(function(){
+					tab('c2');
+				
+			 });
+			
+			 function tab(pid) {
+				var ps = ['c1','c2'];
+				for(var i = 0,len = ps.length;i<len;i++)
+				{
+					if(ps[i] == pid)
+						{$('.'+ps[i]).show("slow");
+							/*alert(pid);
+							alert(ps[i]);*/
+						
+						}
+					else
+						{
+							/*alert(pid);
+							alert(ps[i]);*/
+						$('.'+ps[i]).hide("slow");
+						}
+				}
+			 }
+
+			
+		});
+</script>
+
+
+  <style type = "text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		body{
+			font-size: 12px
+		}
+		.wrap {
+			position:relative;
+		}
+		.divWrapCom{
+			position:absolute;
+			margin: 30px;
+			display:none;
+		}
+		legend{
+			font-size: 16px;
+			font-weight: bold;
+			margin-left: 50px;
+		}
+		fieldset{
+			padding: 40px;
+		}
+		.className{
+			overflow: hidden;
+		}
+		.className li{
+			list-style:none;
+			float:left;
+			margin: 6px;
+		}
+		.teacher{
+			width: 700px;
+			height: 400px;
+			border: 2px solid #ead;
+			background-color: #eee;
+			position:absolute;
+			left: 25%;
+			display:none;
+		}
+  </style>
+ </head>
+
+ <body>
+		<form>
+			<fieldset>
+				<legend>初一年级</legend>
+					<div class = "wrap">
+						<ul class = "className">
+							<li class = "cc1">初一一班</li>
+							<li class = "cc2">初一二班</li>
+							<li class = "cc3">初一三班</li>
+						</ul>
+						<div class = "divWrapCom c1">
+								<span><label>语文:</label><input type = "text" name = "yiban" /><input class = "xuanze" type = "button" value ="选择教师" />
+								<span><label>语文:</label><input type = "text" name = "yiban" /><input class = "xuanze" type = "button" value ="选择教师" />
+						</div>
+						<div class = "divWrapCom c2">
+								<span><label>数学:</label><input type = "text" name = "yiban" /><input class = "xuanze" type = "button" value ="选择教师" /></span>
+								<span><label>数学:</label><input type = "text" name = "yiban" /><input class = "xuanze" type = "button" value ="选择教师" /></span>
+						</div>
+					</div>
+					
+					<div class = "teacher">
+							<ul>
+								<li>张三</li>
+								<li>李四</li>
+							</ul>
+					</div>
+
+
+			</fieldset>
+		</form>
+ </body>
+</html>
