@@ -1,17 +1,24 @@
+﻿<?php
+	
+	session_start();												// 启用此页面的会话功能
+	ini_set('include_path',$_SERVER['DOCUMENT_ROOT']);
+	//set_include_path("/dyscore ; /dyscore/inc");
+	//set_include_path($path . PATH_SEPARATOR .$path1. PATH_SEPARATOR .$path2);
+	//set_include_path(get_include_path() . PATH_SEPARATOR . $path . PATH_SEPARATOR .$path1. PATH_SEPARATOR .$path2);
+	//require_once("global.php");
+	require_once ("inc/functions.php");								// 包含通用函数文件
+	require_once("global.inc");										// 包含系统配置文件
+	require_once ('libs/medoo.min.php'); 						// 引用用medoo框架类，可以简化数据库的操作（数据用户名和密码在此文件中修改） 
+	$database = new medoo("dyscore");							// 连接到dyscore数据库
+	
+ ?>
 <?php
-	$host = "127.0.0.1";
-	$user = "root";
-	$pwd = "";
-	//-------------
-	$qq = mysql_connect($host,$user,$pwd);
 	//--------------
-	$sql = "use dyscore";
-	$rs = mysql_query($sql,$qq);
 	//--------------------需要换环境需要修改
-	$sql = "select ClassCode from classes";
-	$rs = mysql_query($sql,$qq);
+	$sql = "select Classname from classes";
+	$rs = $db->query($sql);
 	$list = array();
-	while($row = mysql_fetch_assoc($rs))
+	while($row = $rs->fetch())
 			$list[] = $row;
 	$arr1 = array();
 	$arr2 = array();
@@ -20,7 +27,7 @@
 	for($i=0,$len=count($list);$i<$len;$i++)
 	{
 		//---------------------需要换环境需要修改
-		list($grade, $class) = sscanf($list[$i]['ClassCode'], "%c %d");
+		list($grade, $class) = sscanf($list[$i]['Classname'], "%c %d");
 		if($grade == 'a')
 		{
 			$arr1[$a1][0] = $grade;
@@ -213,7 +220,7 @@
 			padding:8px;
 			text-decoration:none;
 		}
-		input[name=submitt]{
+		input[type=submit]{
 			width:100px;
 			height:60px;
 			text-align: center;
@@ -224,7 +231,7 @@
  </head>
 
  <body>
-		<form>
+		<form method= "post" action = "getGrant.php">
 		<div class ="bigWrap">
 			<fieldset class = "wrap">
 				<legend class = "title">初一年级</legend>
@@ -242,10 +249,11 @@
 						echo	"<li>政治:<input type = 'text' name ="."'".$counGrade,$counClass."politics"."'"." /></li>";
 						echo	"<li>历史:<input type = 'text' name ="."'".$counGrade,$counClass."history"."'"." /></li>";
 						echo	"<li>地理:<input type = 'text' name ="."'".$counGrade,$counClass."geography"."'"." /></li>";
+						echo	"<li>生物:<input type = 'text' name ="."'".$counGrade,$counClass."biological"."'"." /></li>";
 						echo "</ul>
 						</fieldset>";
 					}?>
-						<fieldset>
+						<!--fieldset>
 
 						<legend>初一二班</legend>
 						<ul class = "objects">
@@ -257,7 +265,7 @@
 							<li>地理:<input type = "text" name = "geography" /></li>
 							<li>生物:<input type = "text" name = "biological" /></li>
 						</ul>
-						</fieldset>
+						</fieldset-->
 			</fieldset>
 			<fieldset class = "wrap">
 				<legend class = "title">初二年级</legend>
@@ -275,11 +283,12 @@
 						echo	"<li>政治:<input type = 'text' name ="."'".$counGrade,$counClass."politics"."'"." /></li>";
 						echo	"<li>历史:<input type = 'text' name ="."'".$counGrade,$counClass."history"."'"." /></li>";
 						echo	"<li>地理:<input type = 'text' name ="."'".$counGrade,$counClass."geography"."'"." /></li>";
+						echo	"<li>生物:<input type = 'text' name ="."'".$counGrade,$counClass."biological"."'"." /></li>";
 						echo	"<li>物理:<input type = 'text' name ="."'".$counGrade,$counClass."physical"."'"." /></li>";
 						echo "</ul>
 						</fieldset>";
 					}?>
-						<fieldset>
+						<!--fieldset>
 						<legend>初二二班</legend>
 						<ul class = "objects">
 							<li>语文:<input type = "text" name = "chinese" /></li>
@@ -291,7 +300,7 @@
 							<li>生物:<input type = "text" name = "biological" /></li>
 							<li>物理:<input type = "text" name = "physical" /></li>
 						</ul>
-						</fieldset>
+						</fieldset-->
 			</fieldset>
 			<fieldset class = "wrap">
 				<legend class = "title">初三年级</legend>
@@ -309,12 +318,13 @@
 						echo	"<li>政治:<input type = 'text' name ="."'".$counGrade,$counClass."politics"."'"." /></li>";
 						echo	"<li>历史:<input type = 'text' name ="."'".$counGrade,$counClass."history"."'"." /></li>";
 						echo	"<li>地理:<input type = 'text' name ="."'".$counGrade,$counClass."geography"."'"." /></li>";
+						echo	"<li>生物:<input type = 'text' name ="."'".$counGrade,$counClass."biological"."'"." /></li>";
 						echo	"<li>物理:<input type = 'text' name ="."'".$counGrade,$counClass."physical"."'"." /></li>";
 						echo	"<li>化学:<input type = 'text' name ="."'".$counGrade,$counClass."chemistry"."'"." /></li>";
 						echo "</ul>
 						</fieldset>";
 					}?>
-						<fieldset>
+						<!--fieldset>
 						<legend>初三二班</legend>
 						<ul class = "objects">
 							<li>语文:<input type = "text" name = "chinese" /></li>
@@ -327,9 +337,9 @@
 							<li>物理:<input type = "text" name = "physical" /></li>
 							<li>化学:<input type = "text" name = "chemistry" /></li>
 						</ul>
-						</fieldset>
+						</fieldset-->
 			</fieldset>
-			<input type = "submit" name = "submitt" value = "确认"><a name = "submitt"></a>
+			<input type = "submit" value = "确认"><a name = "submitt"></a>
 			</div>
 		</form>
 		<div id = "teacher">
@@ -338,9 +348,9 @@
 			<ul>
 		<?php
 			$sql = "select TeacherName,TeacherID FROM teachers";
-			$rs = mysql_query($sql,$qq);
-			while($row = mysql_fetch_assoc($rs))
-				echo '<div class = "wrapli">'.'<li>'.$row['TeacherName'].'</li>'.'('.$row['TeacherID'].')'.'</div>';
+			$rs = $db->query($sql);
+			while($row = $rs->fetch())
+				echo '<div class = "wrapli">'.'<li>'.$row['Username'].'</li>'.'('.$row['TeacherName'].')'.'</div>';
 		?>
 			<ul>
 		</div>
