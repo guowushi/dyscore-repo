@@ -63,6 +63,7 @@ ul{
 <li><a href="student.php" target="mainFrame">学生管理</a></li>
 <li><a href="classes.php" target="mainFrame">班级管理</a></li>
 <li><a href="teacher.php" target="mainFrame">教师管理</a></li>
+<li><a href="/admin/lesson.php" target="mainFrame">课程管理</a></li>
 <li><a href="unlock.php" target="mainFrame">成绩解锁</a></li>
 </ul>
 <hr/>
