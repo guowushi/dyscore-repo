@@ -4,25 +4,37 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>删除记录</title>
 </head>
-
 <body>
 <?php
- require_once dirname(__FILE__) .  '/../conn.php'; 
- 
- //--------------------------
- $items=$_POST[Items];
- $str_items=implode(',',$items);
- 
- 
- //--------------------------
- 
-$sql="INSERT INTO teachers (SchoolID,TeacherID,TeacherName,Email,Username,Password,Items) VALUES(" ;
+	
+	session_start();												// 启用此页面的会话功能
+	require_once '../global.inc';										// 包含系统配置文件
+	require_once ROOT.'/inc/functions.php';								// 包含通用函数文件
+	require_once ROOT.'/libs/medoo.min.php'; 						// 引用用medoo框架类，可以简化数据库的操作（数据用户名和密码在此文件中修改） 
+	$database = new medoo("dyscore");								// 连接到dyscore数据库
+	
 
-$sql=$sql."'$_POST[SchoolID]','$_POST[TeacherID]','$_POST[TeacherName]','$_POST[Email]','$_POST[Username]','$_POST[Password]','$str_items')";
-$cnt=$db->exec($sql);
- alert("添加成功！","teacherForm.php");
-mysql_close($con)
-?>
-?>
+	// (1)获取表单输入,将所有字段的值存入一个key=>value数组中；key需要和字段名一致，value与表单命名一致
+	$row=array();
+	$row['SchoolID']=$_POST['SchoolID'];
+	$row['TeacherCode']=$_POST['TeacherCode'];
+	$row['TeacherName']=$_POST['TeacherName'];
+	$row['Username']=$_POST['Username'];
+	$row['Password']=$_POST['Password'];
+	$row['Items']=$_POST['Items'];
+	//var_dump($row);  显示变量的值，特别适合用来显示变量的数组
+    //(2)区分是保存还是新增加
+    $id=$_POST['id'];
+	if($id){
+		//修改代码，参数1：表名；参数2：值；参数3：条件
+		$database->update("teachers", $row, ["id" => $id]);
+	}else{
+		// 新增代码
+		$last_user_id = $database->insert("teachers", $row);
+	}
+	//(3) 跳转
+	alert("添加成功！","teacher.php");  
+ ?>
+
 </body>
 </html>
