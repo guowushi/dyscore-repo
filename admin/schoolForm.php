@@ -1,8 +1,8 @@
 <?php
 	
 	session_start();												// 启用此页面的会话功能
-	require_once '/global.inc';										// 包含系统配置文件
-	require_once ROOT.'/inc/functions.inc';								// 包含通用函数文件
+	require_once '../global.inc';										// 包含系统配置文件
+	require_once ROOT.'/inc/functions.php';								// 包含通用函数文件
 	require_once ROOT.'/libs/medoo.min.php'; 						// 引用用medoo框架类，可以简化数据库的操作（数据用户名和密码在此文件中修改） 
 	$database = new medoo("dyscore");								// 连接到dyscore数据库
 	
@@ -19,7 +19,7 @@
 		参数3：数组格式的条件。如[id[>]=>10]表示id>10
 		返回结果是一个二维数据
 		*/
-		$datas = $database->select("schools", [	"schoolID","SchoolName","region"], ["id" => $id]);
+		$datas = $database->select("schools", [	"SchoolCode","SchoolName","Region"], ["id" => $id]);
 		//获取第一行
 		$data=$datas[0]; 
 	}
@@ -39,7 +39,7 @@
 	  <tr>
 		<td width="201"><label>学校代码：</label>
 		</td>
-		<td width="462"><input type="text" name="SchoolID"  value="<?php  echo $data['schoolID']; ?>" /></td>
+		<td width="462"><input type="text" name="SchoolCode"  value="<?php  echo $data['SchoolCode']; ?>" /></td>
 	  </tr>
 	  <tr>
 		<td><label>学校名称：</label></td>
@@ -47,7 +47,7 @@
 	  </tr>
 	  <tr>
 		<td><label>学校区域：</label></td>
-		<td><input type="text" name="Region"  value="<?php  echo $data['region']; ?>" /></td>
+		<td><input type="text" name="Region"  value="<?php  echo $data['Region']; ?>" /></td>
 	  </tr>
 	</table>
 	<input name="id" type="hidden" value="<?php echo $id;?>"/>

@@ -1,13 +1,10 @@
-<?php
-	
+<?php	
 	session_start();												// 启用此页面的会话功能
 	require_once '../global.inc';										// 包含系统配置文件
 	//echo $_SERVER["DOCUMENT_ROOT"].'/global.inc';	
-	require_once ROOT.'/inc/functions.php';								// 包含通用函数文件
-	
+	require_once ROOT.'/inc/functions.php';								// 包含通用函数文件	
 	require_once ROOT.'/libs/medoo.min.php'; 						// 引用用medoo框架类，可以简化数据库的操作（数据用户名和密码在此文件中修改） 
-	$database = new medoo("dyscore");								// 连接到dyscore数据库
-	
+	$database = new medoo("dyscore");								// 连接到dyscore数据库	
  ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -26,7 +23,6 @@ h1{text-align:center;}
 </head>
 
 <body>
-
 <h1 class="tableHeader">所有学校信息</h1>
 <form  class="ButtonBanner"   name="form1" method="post" action="">
   <input type="submit" name="button" id="button" value="添加学校" />
@@ -56,7 +52,8 @@ h1{text-align:center;}
   <tr>
     <td><input type="checkbox" class="Selected"></td>
 	<td><?php  echo $row_number; ?></td>
-    <td><?php  echo $row["SchoolCode"]; ?></td>    <td><?php  echo $row["Region"]; ?></td>
+    <td><?php  echo $row["SchoolCode"]; ?></td>
+	<td><?php  echo $row["Region"]; ?></td>
     <td><?php  echo $row["SchoolName"]; ?></td>
      <td><a href="SchoolForm.php?id=<?php  echo $row["ID"]; ?>">编辑</a> |  <a href="schoolDel.php?id=<?php  echo $row["ID"]; ?>">删除</a></td>
   </tr>
@@ -64,7 +61,6 @@ h1{text-align:center;}
   <?php
     $row_number=$row_number+1;
   }
-  
   ?>
   
 </table>
