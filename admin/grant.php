@@ -1,6 +1,6 @@
 ﻿<?php
 	
-	session_start();												// 启用此页面的会话功能
+	session_start();											// 启用此页面的会话功能
 	ini_set('include_path',$_SERVER['DOCUMENT_ROOT']);
 	//set_include_path("/dyscore ; /dyscore/inc");
 	//set_include_path($path . PATH_SEPARATOR .$path1. PATH_SEPARATOR .$path2);

@@ -1,6 +1,7 @@
-<?php
+﻿<?php
 	 require_once dirname(__FILE__) .  '/../conn.php';
 	 header('Content-Type:text/html;charset:utf-8');
+
 
 	foreach($_POST as $key => $value)
 	{
