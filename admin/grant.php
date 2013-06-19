@@ -27,20 +27,22 @@
 	for($i=0,$len=count($list);$i<$len;$i++)
 	{
 		//---------------------需要换环境需要修改
-		list($grade, $class) = sscanf($list[$i]['Classname'], "%c %d");
-		if($grade == 'a')
+		$list[$i]['Classname'] = str_replace('初','',$list[$i]['Classname']);
+		$list[$i]['Classname'] = str_replace('-','',$list[$i]['Classname']);
+		list($grade,$notMean,$class) = sscanf($list[$i]['Classname'], "%c %d");
+		if($grade == '1')
 		{
 			$arr1[$a1][0] = $grade;
 			$arr1[$a1][1] = $class;
 			$a1++;
 		}
-		if($grade == 'b')
+		if($grade == '2')
 		{
 			$arr2[$a2][0] = $grade;
 			$arr2[$a2][1] = $class;
 			$a2++;
 		}
-		if($grade == 'c')
+		if($grade == '3')
 		{
 			$arr3[$a3][0] = $grade;
 			$arr3[$a3][1] = $class;
