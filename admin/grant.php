@@ -2,14 +2,11 @@
 	
 	session_start();											// 启用此页面的会话功能
 	ini_set('include_path',$_SERVER['DOCUMENT_ROOT']);
-	//set_include_path("/dyscore ; /dyscore/inc");
-	//set_include_path($path . PATH_SEPARATOR .$path1. PATH_SEPARATOR .$path2);
-	//set_include_path(get_include_path() . PATH_SEPARATOR . $path . PATH_SEPARATOR .$path1. PATH_SEPARATOR .$path2);
-	//require_once("global.php");
-	require_once ("inc/functions.php");								// 包含通用函数文件
+	require_once ("inc/conn.php");	
+	//require_once ("inc/functions.php");								// 包含通用函数文件
 	require_once("global.inc");										// 包含系统配置文件
-	require_once ('libs/medoo.min.php'); 						// 引用用medoo框架类，可以简化数据库的操作（数据用户名和密码在此文件中修改） 
-	$database = new medoo("dyscore");							// 连接到dyscore数据库
+	//require_once ('libs/medoo.min.php'); 						// 引用用medoo框架类，可以简化数据库的操作（数据用户名和密码在此文件中修改） 
+	//$database = new medoo("test");							// 连接到dyscore数据库
 	
  ?>
 <?php
@@ -73,7 +70,7 @@
   <meta charset = "utf-8" />
   <meta name="Keywords" content="">
   <meta name="Description" content="">
-	<script type="text/javascript" src="../js/jquery-1.6.4.min.js"></script>
+	<script type="text/javascript" src="/js/jquery.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			var techerVal;
@@ -241,55 +238,43 @@
 					for($i=0,$len=count($arr1);$i<$len;$i++)
 					{
 						$counGrade = $arr1[$i][0]; 
-						$counClass = $arr1[$i][1];
-						echo "<fieldset>
-						<legend>初一 $counClass 班</legend>";
-						echo '<ul class = "objects">';
-						echo	"<li>语文:<input type = 'text' name ="."'".$counGrade,$counClass."chinese"."'"."/></li>";
-						echo	"<li>数学:<input type = 'text' name ="."'".$counGrade,$counClass."math"."'"." /></li>";
-						echo	"<li>英语:<input type = 'text' name ="."'".$counGrade,$counClass."english"."'"." /></li>";
-						echo	"<li>政治:<input type = 'text' name ="."'".$counGrade,$counClass."politics"."'"." /></li>";
-						echo	"<li>历史:<input type = 'text' name ="."'".$counGrade,$counClass."history"."'"." /></li>";
-						echo	"<li>地理:<input type = 'text' name ="."'".$counGrade,$counClass."geography"."'"." /></li>";
-						echo	"<li>生物:<input type = 'text' name ="."'".$counGrade,$counClass."biological"."'"." /></li>";
-						echo "</ul>
-						</fieldset>";
-					}?>
-						<!--fieldset>
-
-						<legend>初一二班</legend>
-						<ul class = "objects">
-							<li>语文:<input type = "text" name = "chinese" /></li>
-							<li>数学:<input type = "text" name = "math" /></li>
-							<li>英语:<input type = "text" name = "english" /></li>
-							<li>政治:<input type = "text" name = "politics" /></li>
-							<li>历史:<input type = "text" name = "history" /></li>
-							<li>地理:<input type = "text" name = "geography" /></li>
-							<li>生物:<input type = "text" name = "biological" /></li>
+						$counClass = $arr1[$i][1]; ?>
+						<fieldset>
+						<legend>初一 <?php echo $counClass; ?>班</legend>;
+						<ul class = "objects">;
+						<li>语文:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>chinese"/></li>
+						<li>数学:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>math"/></li>
+						<li>英语:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>english" /></li>
+						<li>政治:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>politics" /></li>
+						<li>历史:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>history" /></li>
+						<li>地理:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>geography" /></li>
+						<li>生物:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>biological" /></li>
 						</ul>
-						</fieldset-->
+						</fieldset>
+					<?php } ?>
 			</fieldset>
 			<fieldset class = "wrap">
 				<legend class = "title">初二年级</legend>
 				<?php
 					for($i=0,$len=count($arr2);$i<$len;$i++)
 					{
-						$counGrade = $arr2[$i][0]; 
-						$counClass = $arr2[$i][1];
-						echo "<fieldset>
-						<legend>初二 $counClass 班</legend>";
-						echo '<ul class = "objects">';
-						echo	"<li>语文:<input type = 'text' name ="."'".$counGrade,$counClass."chinese"."'"."/></li>";
-						echo	"<li>数学:<input type = 'text' name ="."'".$counGrade,$counClass."math"."'"." /></li>";
-						echo	"<li>英语:<input type = 'text' name ="."'".$counGrade,$counClass."english"."'"." /></li>";
-						echo	"<li>政治:<input type = 'text' name ="."'".$counGrade,$counClass."politics"."'"." /></li>";
-						echo	"<li>历史:<input type = 'text' name ="."'".$counGrade,$counClass."history"."'"." /></li>";
-						echo	"<li>地理:<input type = 'text' name ="."'".$counGrade,$counClass."geography"."'"." /></li>";
-						echo	"<li>生物:<input type = 'text' name ="."'".$counGrade,$counClass."biological"."'"." /></li>";
-						echo	"<li>物理:<input type = 'text' name ="."'".$counGrade,$counClass."physical"."'"." /></li>";
-						echo "</ul>
-						</fieldset>";
-					}?>
+							
+						$counGrade = $arr1[$i][0]; 
+						$counClass = $arr1[$i][1]; ?>
+						<fieldset>
+						<legend>初二 <?php echo $counClass; ?>班</legend>;
+						<ul class = "objects">;
+						<li>语文:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>chinese"/></li>
+						<li>数学:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>math"/></li>
+						<li>英语:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>english" /></li>
+						<li>政治:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>politics" /></li>
+						<li>历史:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>history" /></li>
+						<li>地理:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>geography" /></li>
+						<li>生物:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>biological" /></li>
+						<li>物理:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>physical" /></li>
+						</ul>
+						</fieldset>
+					<?php } ?>
 						<!--fieldset>
 						<legend>初二二班</legend>
 						<ul class = "objects">
@@ -309,37 +294,24 @@
 				<?php
 					for($i=0,$len=count($arr3);$i<$len;$i++)
 					{
-						$counGrade = $arr3[$i][0]; 
-						$counClass = $arr3[$i][1];
-						echo "<fieldset>
-						<legend>初三 $counClass 班</legend>";
-						echo '<ul class = "objects">';
-						echo	"<li>语文:<input type = 'text' name ="."'".$counGrade,$counClass."chinese"."'"."/></li>";
-						echo	"<li>数学:<input type = 'text' name ="."'".$counGrade,$counClass."math"."'"." /></li>";
-						echo	"<li>英语:<input type = 'text' name ="."'".$counGrade,$counClass."english"."'"." /></li>";
-						echo	"<li>政治:<input type = 'text' name ="."'".$counGrade,$counClass."politics"."'"." /></li>";
-						echo	"<li>历史:<input type = 'text' name ="."'".$counGrade,$counClass."history"."'"." /></li>";
-						echo	"<li>地理:<input type = 'text' name ="."'".$counGrade,$counClass."geography"."'"." /></li>";
-						echo	"<li>生物:<input type = 'text' name ="."'".$counGrade,$counClass."biological"."'"." /></li>";
-						echo	"<li>物理:<input type = 'text' name ="."'".$counGrade,$counClass."physical"."'"." /></li>";
-						echo	"<li>化学:<input type = 'text' name ="."'".$counGrade,$counClass."chemistry"."'"." /></li>";
-						echo "</ul>
-						</fieldset>";
-					}?>
-						<!--fieldset>
-						<legend>初三二班</legend>
-						<ul class = "objects">
-							<li>语文:<input type = "text" name = "chinese" /></li>
-							<li>数学:<input type = "text" name = "math" /></li>
-							<li>英语:<input type = "text" name = "english" /></li>
-							<li>政治:<input type = "text" name = "politics" /></li>
-							<li>历史:<input type = "text" name = "history" /></li>
-							<li>地理:<input type = "text" name = "geography" /></li>
-							<li>生物:<input type = "text" name = "biological" /></li>
-							<li>物理:<input type = "text" name = "physical" /></li>
-							<li>化学:<input type = "text" name = "chemistry" /></li>
+						$counGrade = $arr1[$i][0]; 
+						$counClass = $arr1[$i][1]; ?>
+						<fieldset>
+						<legend>初三 <?php echo $counClass; ?>班</legend>;
+						<ul class = "objects">;
+						<li>语文:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>chinese"/></li>
+						<li>数学:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>math"/></li>
+						<li>英语:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>english" /></li>
+						<li>政治:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>politics" /></li>
+						<li>历史:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>history" /></li>
+						<li>地理:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>geography" /></li>
+						<li>生物:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>biological" /></li>
+						<li>物理:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>physical" /></li>
+						<li>化学:<input type = 'text' name ="<?php echo$counGrade,$counClass ?>chemistry" /></li>
+
 						</ul>
-						</fieldset-->
+						</fieldset>
+					<?php } ?>
 			</fieldset>
 			<input type = "submit" value = "确认"><a name = "submitt"></a>
 			</div>
@@ -349,11 +321,12 @@
 			<p>关闭</p>
 			<ul>
 		<?php
-			$sql = "select TeacherName,TeacherID FROM teachers";
+			$sql = "select TeacherName,username FROM teachers";
 			$rs = $db->query($sql);
-			while($row = $rs->fetch())
-				echo '<div class = "wrapli">'.'<li>'.$row['Username'].'</li>'.'('.$row['TeacherName'].')'.'</div>';
+			while($row = $rs->fetch()){
 		?>
+				<div class = "wrapli"><li><?php echo $row['username']?></li><?php echo $row['TeacherName']?></div>
+		<?php } ?>
 			<ul>
 		</div>
 		<a class = "jumpSubmit" href = "#submitt">跳转</a>
