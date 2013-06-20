@@ -47,13 +47,14 @@
 				//定义excel结构,需要根据实际的Excel和导入的表进行修改
 				$headers=array(
 					"A"=>array('colName'=>"编号",	'colField'=>"ID"		,'colType'=>'n'),
-					'B'=>array('colName'=>"学校编号",	'colField'=>"SchoolID"	,'colType'=>'n'),
+					'B'=>array('colName'=>"学校编号",	'colField'=>"SchoolCode"	,'colType'=>'n'),
 					'C'=>array('colName'=>"班级编码",	'colField'=>"ClassID"	,'colType'=>'n'),
 					'D'=>array('colName'=>"学生学号",	'colField'=>"StudentCode"		,'colType'=>'n'),
 					'E'=>array('colName'=>"学生姓名",	'colField'=>"StudentName"		,'colType'=>'n'),
 					'F'=>array('colName'=>"年级",	'colField'=>"StudentLevel"		,'colType'=>'n'),
 					'G'=>array('colName'=>"考号",	'colField'=>"CandidateID"		,'colType'=>'n'),
-					'H'=>array('colName'=>"密码",	'colField'=>"Password"		,'colType'=>'n')
+					'H'=>array('colName'=>"密码",	'colField'=>"Password"		,'colType'=>'n'),
+					'I'=>array('colName'=>"备注",	'colField'=>"comment"		,'colType'=>'n'),
 
 				);
 				//将excel导入到哪个表中，需要根据实际情况修改

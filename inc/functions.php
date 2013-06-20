@@ -14,23 +14,23 @@ function araryToTable($xls,$headers,$database,$table){
 			$start=2;  
 			for($i=$start;$i<=count($sheetData);$i++){
 		
-			//获取第i行的第A列（通常都是ID字段数据）；如果有值则修改，否则是新增
-			$primaryKeyValue=$sheetData[$i]['A'];  
-			echo $primaryKeyValue;
-			$primaryKey=$headers['A']['colField'];
-			// excel第i行数据
-			$sheetRow=$sheetData[$i];
-			foreach($headers as $key=>$header){
-					$row[$header['colField']]=$sheetRow[$key];
-			}
-			if(!empty($primaryKeyValue)){
-				$database->update($table, $row, [$primaryKey => $primaryKeyValue]);
-			}else{
-				// 新增代码
-				$last_user_id = $database->insert($table, $row);
+					//获取第i行的第A列（通常都是ID字段数据）；如果有值则修改，否则是新增
+					$primaryKeyValue=$sheetData[$i]['A'];  
+					echo $primaryKeyValue;
+					$primaryKey=$headers['A']['colField'];
+					// excel第i行数据
+					$sheetRow=$sheetData[$i];
+					foreach($headers as $key=>$header){
+							$row[$header['colField']]=$sheetRow[$key];
+					}
+					if(!empty($primaryKeyValue)){
+						$database->update($table, $row, [$primaryKey => $primaryKeyValue]);
+					}else{
+						// 新增代码
+						$last_user_id = $database->insert($table, $row);
 
-				
-			}
+						
+					}
 		
 			}
 		

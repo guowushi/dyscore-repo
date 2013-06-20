@@ -53,7 +53,9 @@ input.scoreWidth{
   
   
   <form> 
-  <p align="center">XX学校XX学期教师开设课程情况</p> 
+  <p align="center">
+	<?php echo !empty($_SESSION['school']['SchoolName'])?$_SESSION['school']['SchoolName']:""; ?>
+	学校 教师开设课程情况</p> 
   <table  border="0" cellspacing="1 " cellpadding="0 " width="100%">
   <tr>
     <th name="ID" width="76" scope="col">编号</th>
@@ -69,16 +71,26 @@ input.scoreWidth{
    $sql="SELECT * FROM  lessons ";
   $rows=$database->query($sql);
   $num=1;
-   foreach($rows as $row){
+  foreach($rows as $row){
+  
+	// 跟据教师编号获取教师信息
+		$teacher_info=$database->get("teachers",$SCHEMAS['teachers'],['ID'=>$row['TeacherID']]);
+	
+	// 根据班级编号获取班级信息
+	    $class_info=$database->get("classes",$SCHEMAS['classes'],['ClassCode'=>$row['ClassID']]);
+		//$class_info=$database->get("classes",$SCHEMAS['classes'],['ID'=>$row['ClassID']]);
+	//根据班级编号统计班级人数
+	 // $count = $database->count("students", ["classID"=>$row['ClassID']]);55010301
+	 $count = $database->count("students", ["classID"=>$row['ClassID']]); 
   ?>
   <tr>
     <td><?php echo $num; ?></td>
     <td><?php echo $row['TeacherID']; ?></td>
-    <td><?php echo $row['TeacherID']; ?></td>
-    <td><?php echo $row['ClassID']; ?></td>
-    <td><?php echo $row['ClassID']; ?></td>
+    <td><a href="#" title="<?php echo $teacher_info['TeacherName']; ?>"> <?php echo $teacher_info['TeacherName']; ?></a></td>
+    <td><a href="#" title="<?php echo $class_info['ClassName']; ?>">  <?php echo $class_info['ClassName']; ?> </a></td>
+    <td><?php echo $count; ?></td>
     <td><?php echo $row['Lesson']; ?></td>
-    <td><a href="score.php?lesson=<?php echo $row['id']; ?>">成绩管理</a></td>
+    <td><a href="classInput.php?lesson=<?php echo $row['ID']; ?>">成绩管理</a></td>
   </tr>
   <?php } ?>
 </table>

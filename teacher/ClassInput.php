@@ -82,8 +82,8 @@ input.scoreWidth{
 
   
   
-  <form> 
-  <p align="center">学生成绩录入</p> 
+  <form method="POST" action="inputSave.php"> 
+  <p align="center">xx学期xx课程xx班级 学生成绩录入</p> 
   <table  border="0" cellspacing="1 " cellpadding="0 " width="100%">
   <tr>
     <th name="ID" width="76" scope="col">编号</th>
@@ -100,13 +100,38 @@ input.scoreWidth{
     <th width="84"  name="Geography"scope="col">地理</th>
   </tr>
   <?php 
-	  // 获取班级所有学生的编号
+	  
+	  //(1)获取任务ID获取当前课程信息
+	  $lesson_id=$_GET['lesson'];
+	  $sql="SELECT * FROM  lessons ";
+	  $sql.="  WHERE ID=".$lesson_id;  
+	  $lesson=$database->get($sql);
+	  
+	   
+	  //(2)根据班级编号获取班级信息
+		$classid=$lesson['ClassID']; 
+	   $sql=" SELECT * FROM Classes  ";  
+	   $sql.="  WHERE ClassCode=".$classid;  
+	  
+	  //(3)获取该班级中所有学生的编号
+
+	  $sql="SELECT ID FROM students ";  
+	  $sql.=" WHERE ClassCode=".$classid;  
+	  echo $sql;
+	  $student_ids=$database->query($sql);
+	  
+	  //(4)获取学生的成绩信息
 	  $sql="select * from Scores  ";
-	  // $sql.=" Where StudentID in(".$IDs.")";
+	  $sql.=" Where StudentID in(".implode(",", $student_ids).")";
+	  echo $sql;
 	   $rows=$database->query($sql);
 	   $num=1;
+	   
+	   
+	   
 	   foreach($rows as $row){
 			$current_student_id=$row['StudentID'];
+			
 			$student_info=$database->get("students",['ID','StudentID','StudentName','ClassID'],['ID'=>$current_student_id]);
 	   
   ?>
@@ -115,39 +140,39 @@ input.scoreWidth{
     <td><?php echo $student_info['StudentID'];?></td>
     <td><?php echo $student_info['StudentName'];?></td>
     <td> 
-      <input name="Chinese" type="text"  class="scoreWidth"  />
+      <input name="Chinese['<?php echo $current_student_id; ?>']" type="text"  class="scoreWidth"  />
      </td>
     <td> 
      
-      <input name="Math" type="text"  class="scoreWidth"/>
+      <input name="Math['<?php echo $current_student_id; ?>']" type="text"  class="scoreWidth"/>
     </td>
     <td> 
       
-      <input name="English" type="text" class="scoreWidth" />
+      <input name="English['<?php echo $current_student_id; ?>']" type="text" class="scoreWidth" />
     </td>
     <td> 
       
-      <input name="Politics" type="text" class="scoreWidth" />
+      <input name="Politics['<?php echo $current_student_id; ?>']" type="text" class="scoreWidth" />
      </td>
     <td> 
      
-      <input name="History" type="text" class="scoreWidth"/>
+      <input name="History['<?php echo $current_student_id; ?>']" type="text" class="scoreWidth"/>
      </td>
     <td> 
       
-      <input name="Geography" type="text" class="scoreWidth" />
+      <input name="Geography['<?php echo $current_student_id; ?>']" type="text" class="scoreWidth" />
     </td>
     <td> 
     
-      <input name="Biological" type="text" class="scoreWidth" />
+      <input name="Biological['<?php echo $current_student_id; ?>']" type="text" class="scoreWidth" />
     </td>
     <td> 
      
-      <input name="Physical" type="text" class="scoreWidth" />
+      <input name="Physical['<?php echo $current_student_id; ?>']" type="text" class="scoreWidth" />
     </td>
     <td> 
       
-      <input name="Chemistry" type="text" class="scoreWidth" />
+      <input name="Chemistry['<?php echo $current_student_id; ?>']" type="text" class="scoreWidth" />
   </td>
   </tr>
   <?php
@@ -156,9 +181,9 @@ input.scoreWidth{
   ?>
   
 </table>
-  <input type="submit" / value="保存">
-  <input type="submit" / value="提交锁定" />
- 
+  <input type="submit"   value="保存" />
+  <input type="submit"   value="提交锁定" />
+  <input type="button"   value="返回" />
 </form>
 
  

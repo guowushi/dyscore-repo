@@ -27,7 +27,7 @@
    if($usertype=="2"){
   
 		$sql="select * from admins where AdminName='$username' and AdminPassword='$password'";
-		$sql=$sql."  And SchoolID=".$schoolID;
+		$sql=$sql."  And SchoolCode=".$schoolID;
 		$rs = $db->query($sql);
 		$row = $rs->fetch();
 		if($row){
@@ -44,15 +44,15 @@
   // -------如果用户类型2是教师--------------------------------------
   if($usertype=="3"){
 		$sql="select * from teachers where UserName='$username' and Password='$password'";
-		$sql=$sql."  And SchoolID='".$schoolID."'";
+		$sql=$sql."  And SchoolCode='".$schoolID."'";
 		$rs = $db->query($sql);
 		$row = $rs->fetch();
 		//var_dump($row);
 		if($row){
 			   //获取当前学校
-			   $currentSchool = $database->get("schools", ['ID','SchoolCode','SchoolName'], ["SchoolCode" => $row['SchoolID']]);
+			   $currentSchool = $database->get("schools", ['ID','SchoolCode','SchoolName'], ["SchoolCode" => $row['SchoolCode']]);
 			   //获取当前用户
-			   $currentUser=$database->get("teachers",['ID','SchoolID','TeacherCode','TeacherName','Email','Username'] , ["ID" => $row['ID']]);
+			   $currentUser=$database->get("teachers",['ID','SchoolCode','TeacherCode','TeacherName','Email','Username'] , ["ID" => $row['ID']]);
 			   //var_dump($currentUser);
 			   
 				$_SESSION['school']=$currentSchool;

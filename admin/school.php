@@ -31,13 +31,15 @@ h1{text-align:center;}
 <form  class="ButtonBanner"   name="form1" method="post" action="">
   <input type="submit" name="button" id="button" value="添加学校" />
 </form>
-<table width="100%" border="1" >
+<table  class="table" width="90%">
   <tr>
     <th scope="col"><input type="checkbox" class="SelectAll"></th>
 	<th scope="col">编号</th>
     <th scope="col">学校代码</th>
     <th scope="col">所属区域</th>
     <th scope="col">学校名称</th>
+	 <th scope="col">班级数量</th>
+	  <th scope="col">学生数量</th>
     <th scope="col">操作</th>
   </tr>
   
@@ -50,14 +52,21 @@ h1{text-align:center;}
 	$rows=$database->query($sql)->fetchAll();
 	$row_number=1;	
 	// 遍历数组，每行就表示一条记录。访问记录的字段可以使用 $row['字段名']或$row[1]的格式
-	foreach($rows  as $row)
-		{
+	foreach($rows  as $row){
+	
+	// 根据学校编号查询下属班级和学生
+	 $sid=$row["SchoolCode"];
+	 $count_class= $database->count("classes", ["SchoolCode" => $sid]);
+	 $count_student=$database->count("students", ["SchoolCode" => $sid]);
   ?>
   <tr>
     <td><input type="checkbox" class="Selected"></td>
 	<td><?php  echo $row_number; ?></td>
-    <td><?php  echo $row["SchoolCode"]; ?></td>    <td><?php  echo $row["Region"]; ?></td>
+    <td><?php  echo $row["SchoolCode"]; ?></td>    
+	<td><?php  echo $row["Region"]; ?></td>
     <td><?php  echo $row["SchoolName"]; ?></td>
+	<td><?php  echo $count_class; ?></td>
+	<td><?php  echo $count_student; ?></td>
      <td><a href="SchoolForm.php?id=<?php  echo $row["ID"]; ?>">编辑</a> |  <a href="schoolDel.php?id=<?php  echo $row["ID"]; ?>">删除</a></td>
   </tr>
   

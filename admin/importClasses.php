@@ -1,7 +1,9 @@
 <?php
-	require_once dirname(__FILE__) . '/../conn.php';
-	require_once dirname(__FILE__) . '/../libs/medoo.min.php'; 
-	$database = new medoo("dyscore");
+	session_start();												// 启用此页面的会话功能
+	require_once '../global.inc';										// 包含系统配置文件
+	require_once ROOT.'/inc/functions.php';								// 包含通用函数文件
+	require_once ROOT.'/libs/medoo.min.php'; 						// 引用用medoo框架类，可以简化数据库的操作（数据用户名和密码在此文件中修改） 
+	$database = new medoo("dyscore");								// 连接到dyscore数据库
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -11,7 +13,7 @@
 </head>
 
 <body>
-<form method="post" enctype="multipart/form-data" action="importxls.php">
+<form method="post" enctype="multipart/form-data" action="">
     <input name="file" type="file" />
     <input type="submit" name="submit" value="导入数据" />
 </form>
@@ -30,7 +32,7 @@
 				echo $file_type;
 				// 获取传到服务器上的临时文件
 				$tmp = $_FILES['file']['tmp_name']; 
-				echo $tmp;
+				//echo $tmp;
 				
 				// 
 				if(empty($tmp)){ 
@@ -47,9 +49,11 @@
 				//定义excel结构,需要根据实际的Excel和导入的表进行修改
 				$headers=array(
 					"A"=>array('colName'=>"编号",	'colField'=>"ID"		,'colType'=>'n'),
-					'B'=>array('colName'=>"学校编号",	'colField'=>"SchoolID"	,'colType'=>'n'),
+					'B'=>array('colName'=>"学校编号",	'colField'=>"SchoolCode"	,'colType'=>'n'),
 					'C'=>array('colName'=>"班级",	'colField'=>"Classname"	,'colType'=>'n'),
-					'D'=>array('colName'=>"年级",	'colField'=>"Level"		,'colType'=>'n')
+					'D'=>array('colName'=>"年级",	'colField'=>"ClassLevel"		,'colType'=>'n'),
+					'E'=>array('colName'=>"班级编码",	'colField'=>"ClassCode"		,'colType'=>'n'),
+					'F'=>array('colName'=>"年级",	'colField'=>"comment"		,'colType'=>'n')
 				);
 				//将excel导入到哪个表中，需要根据实际情况修改
 				$table="classes";

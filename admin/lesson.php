@@ -13,13 +13,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>各校信息</title>
+<title>任课信息</title>
 <link rel="stylesheet" type="text/css" href="/libs/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="/css/reset.css">
-
-
 <style type="text/css">
-table{background-color:#000;}
+.table{ margin-top:5px;margin-bottom:5px;}
 tr{background-color:#FFF; text-align:center;}
 h1{text-align:center;}
 </style>
@@ -27,17 +25,18 @@ h1{text-align:center;}
 
 <body>
 
-<h1 class="tableHeader">所有学校信息</h1>
+<h1 class="tableHeader">任课信息</h1>
 <form  class="ButtonBanner"   name="form1" method="post" action="">
-  <input type="submit" name="button" id="button" value="添加学校" />
+  <input type="submit" name="button" id="button" value="分配课程" />
 </form>
-<table width="100%" border="1" >
+<table class="table" width="100%" >
   <tr>
     <th scope="col"><input type="checkbox" class="SelectAll"></th>
 	<th scope="col">编号</th>
     <th scope="col">学校代码</th>
-    <th scope="col">所属区域</th>
-    <th scope="col">学校名称</th>
+    <th scope="col">班级代码</th>
+    <th scope="col">课程</th>
+	
     <th scope="col">操作</th>
   </tr>
   
@@ -46,7 +45,7 @@ h1{text-align:center;}
 	/*
 		定义查询语句,执行该$sql语句，并获去所有记录放到一个二维数组$rows中
 	*/
-	$sql="select * from schools ";  	
+	$sql="select * from lessons ";  	
 	$rows=$database->query($sql)->fetchAll();
 	$row_number=1;	
 	// 遍历数组，每行就表示一条记录。访问记录的字段可以使用 $row['字段名']或$row[1]的格式
@@ -56,9 +55,10 @@ h1{text-align:center;}
   <tr>
     <td><input type="checkbox" class="Selected"></td>
 	<td><?php  echo $row_number; ?></td>
-    <td><?php  echo $row["SchoolCode"]; ?></td>    <td><?php  echo $row["Region"]; ?></td>
-    <td><?php  echo $row["SchoolName"]; ?></td>
-     <td><a href="SchoolForm.php?id=<?php  echo $row["ID"]; ?>">编辑</a> |  <a href="schoolDel.php?id=<?php  echo $row["ID"]; ?>">删除</a></td>
+    <td><?php  echo $row["SchoolCode"]; ?></td>    
+	<td><?php  echo $row["ClassID"]; ?></td>
+    <td><?php  echo $row["Lesson"]; ?></td>
+     <td><a href="LessonForm.php?id=<?php  echo $row["ID"]; ?>">编辑</a> |  <a href="LessonDel.php?id=<?php  echo $row["ID"]; ?>">删除</a></td>
   </tr>
   
   <?php

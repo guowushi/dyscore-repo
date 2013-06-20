@@ -15,13 +15,27 @@
 		/* 
 		查找指定Id的记录.
 		参数1：表名；
-		参数2：字段组成的数组；
+		参数2：字段名组成的数组；
 		参数3：数组格式的条件。如[id[>]=>10]表示id>10
 		返回结果是一个二维数据
 		*/
-		$datas = $database->select("schools", [	"SchoolCode","SchoolName","region"], ["id" => $id]);
-		//获取第一行
-		$data=$datas[0]; 
+		$tablename="lessons";			
+		$fields=["SchoolCode","ClassID","TeacherID","Lesson","ItemID","Term","comment"];
+		$conditions=["id" => $id];
+		$data = $database->get($tablename, $fields, $conditions);
+		
+		
+
+	}else{
+		
+		$data['SchoolCode']=!empty($_SESSION['school']['SchoolCode'])?$_SESSION['school']['SchoolCode']:"";
+		 
+		$data['ItemID']='';
+		$data['Term']=$TERMS[0];
+		$data['comment']='';
+		//var_dump($data);
+		//var_dump($_SESSION['school']);
+	
 	}
 	
  ?>
@@ -29,25 +43,106 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>录入学校信息</title>
+<title></title>
 </head> 
 <body>
 
-<form method="post" action="schoolSave.php">
-	<h1>请录入学校信息</h1>
+<form method="post" action="lessonSave.php">
+	<h1>请编辑排课信息</h1>
 	<table width="584" border="0" cellspacing="0" cellpadding="0">
 	  <tr>
 		<td width="201"><label>学校代码：</label>
 		</td>
-		<td width="462"><input type="text" name="SchoolID"  value="<?php  echo $data['SchoolCode']; ?>" /></td>
+		<td width="462"><input type="text" name="SchoolCode" readonly value="<?php  echo $data['SchoolCode']; ?>" /></td>
 	  </tr>
 	  <tr>
-		<td><label>学校名称：</label></td>
-		<td><input type="text" name="SchoolName" value="<?php  echo $data['SchoolName']; ?>" /></td>
+		<td><label>班级名称</label></td>
+		<td>
+			<select name="ClassID">
+			<?php
+			$tablename='classes';			
+			$fields=$SCHEMAS['classes'];
+			if(!empty($data['SchoolCode'])){
+				
+				$conditions=["SchoolCode" => $data['SchoolCode']];
+				 
+			}else{
+				$conditions=[];
+			}
+			//获取当前学校所有班级
+			$rows = $database->select($tablename,$fields , $conditions);
+			foreach($rows as $row){
+			?>
+				<option value="<?php echo $row['ClassCode'];?>"><?php echo $row['SchoolCode'].'-'.$row['ClassName'];?></option>
+			<?php
+			}
+			?>
+		
+		</select>
+		 
+		</td>
 	  </tr>
 	  <tr>
-		<td><label>学校区域：</label></td>
-		<td><input type="text" name="Region"  value="<?php  echo $data['region']; ?>" /></td>
+		<td><label>教师名</label></td>
+		<td>
+		<select name="TeacherID">
+			<?php
+			$tablename='teachers';			
+			$fields=$SCHEMAS['teachers'];
+			if(!empty($data['SchoolCode'])){
+				$conditions=["SchoolCode" => $data['SchoolCode']];
+			}else{
+				$conditions=[];
+			}
+			$rows = $database->select($tablename,$fields , $conditions);
+			foreach($rows as $row){
+			?>
+				<option value="<?php echo $row['ID'];?>"><?php echo $row['TeacherName'];?></option>
+			<?php
+			}
+			?>
+		
+		</select>
+	 
+	  </tr>
+	  <tr>
+		<td><label>课名</label></td>
+		<td>
+			<select name="Lesson">
+			<?php
+		 
+			foreach($ITEMS as $item){
+			?>
+				<option value="<?php echo $item;?>"><?php echo $item;?></option>
+			<?php
+			}
+			?>
+		
+		</select>
+		 
+	  </tr>
+	  <tr>
+		<td><label>课程编号</label></td>
+		<td><input type="text" name="ItemID"  value="<?php  echo $data['ItemID']; ?>" /></td>
+	  </tr>
+	  <tr>
+		<td><label>学期</label></td>
+		<td>
+			<select name="Term" readonly>
+		<?php
+		 
+			foreach($TERMS as $item){
+			?>
+				<option value="<?php echo $item;?>"><?php echo $item;?></option>
+			<?php
+			}
+			?>
+			</select>
+		</td>
+	  </tr>
+	  <tr>
+		<td><label>说明</label></td>
+		<td><input type="text" name="comment"  value="<?php  echo $data['comment']; ?>" /></td>
 	  </tr>
 	</table>
 	<input name="id" type="hidden" value="<?php echo $id;?>"/>
