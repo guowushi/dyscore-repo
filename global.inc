@@ -22,14 +22,26 @@ $TERMS=array("2012-2013-2学期","2012-2013-1学期");
 //所有可上的科目
 $ITEMS=array('语文','数学','英语','政治','历史','地理','生物','物理','化学');
 
-
+$KM=array(
+	'Chinese'=>'语文',
+	'Math'=>'数学',
+	'English'=>'英语',
+	'Politics'=>'政治',
+	'History'=>'历史',
+	'Geography'=>'地理',
+	'Biological'=>'生物',
+	'Physical'=>'物理',
+	'Chemistry'=>'化学'
+	);
 // 定义所有表的字段（不包括ID）
 $SCHEMAS=array(
+			'admins'=>['ID','SchoolCode','AdminName','AdminPassword','comment'],
 			'schools'=>['ID','SchoolCode','Region','SchoolName','comment'],
 			'lessons'=>['ID','SchoolCode','ClassID','TeacherID','Lesson','ItemID','Term','comment'],
 			'classes'=>['ID','SchoolCode','ClassName','ClassLevel','ClassCode','comment'],
 			'students'=>['ID','SchoolID','ClassID','StudentCode','StudentName','StudentLevel','CandidateID','Password','comment'],
-			'teachers'=>['ID','SchoolCode','TeacherCode','TeacherName','Email','Username','Password','Items','TeacherRole','comment']
+			'teachers'=>['ID','SchoolCode','TeacherCode','TeacherName','Email','Username','Password','Items','TeacherRole','comment'],
+			'scores'=>['ID','StudentID','Term','Chinese','Math','English','Politics','History','Geography','Biological','Physical','Chemistry']
 			);
 			
 ?>
