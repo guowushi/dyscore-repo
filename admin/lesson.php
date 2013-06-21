@@ -25,15 +25,15 @@ h1{text-align:center;}
 
 <body>
 
-<h1 class="tableHeader">任课信息</h1>
-<form  class="ButtonBanner"   name="form1" method="post" action="">
-  <input type="submit" name="button" id="button" value="分配课程" />
-</form>
+<h1 class="tableHeader">xx 教师的任课信息</h1>
+
 <table class="table" width="100%" >
+	
   <tr>
     <th scope="col"><input type="checkbox" class="SelectAll"></th>
 	<th scope="col">编号</th>
     <th scope="col">学校代码</th>
+	  <th scope="col">教师</th>
     <th scope="col">班级代码</th>
     <th scope="col">课程</th>
 	
@@ -45,20 +45,28 @@ h1{text-align:center;}
 	/*
 		定义查询语句,执行该$sql语句，并获去所有记录放到一个二维数组$rows中
 	*/
-	$sql="select * from lessons ";  	
+	$tid=$_SESSION['user']['ID']; //获取当前教师的编号
+	$sql="select * from lessons "; 
+	$sql.=" WHERE TeacherID= ".$tid;	
 	$rows=$database->query($sql)->fetchAll();
 	$row_number=1;	
 	// 遍历数组，每行就表示一条记录。访问记录的字段可以使用 $row['字段名']或$row[1]的格式
-	foreach($rows  as $row)
-		{
+	foreach($rows  as $row){
+	
+	$cid=$row["ClassID"];
+	$class=$database->get('classes',$SCHEMAS['classes'],['ClassCode'=>$cid]);
   ?>
   <tr>
     <td><input type="checkbox" class="Selected"></td>
 	<td><?php  echo $row_number; ?></td>
-    <td><?php  echo $row["SchoolCode"]; ?></td>    
-	<td><?php  echo $row["ClassID"]; ?></td>
+    <td><?php  echo $row["SchoolCode"]; ?></td>
+	<td><?php  echo $row["TeacherID"]; ?></td>    
+	<td><?php  echo $class["ClassName"]; ?></td>
     <td><?php  echo $row["Lesson"]; ?></td>
-     <td><a href="LessonForm.php?id=<?php  echo $row["ID"]; ?>">编辑</a> |  <a href="LessonDel.php?id=<?php  echo $row["ID"]; ?>">删除</a></td>
+     <td>
+		<a href="LessonForm.php?id=<?php  echo $row["ID"]; ?>">编辑</a> |  
+		<a href="LessonDel.php?id=<?php  echo $row["ID"]; ?>">删除</a>
+		</td>
   </tr>
   
   <?php
@@ -68,10 +76,13 @@ h1{text-align:center;}
   ?>
   
 </table>
-<form  class="ButtonBanner"   name="form1" method="post" action="">
-  <input type="submit" name="button" id="button" value="添加学校" />
-  <span>共<?php echo count($rows);?>条记录</span>
-</form>
-<p>&nbsp;</p>
+<?php 
+   if($_SESSION['usertype']==2){
+?>
+	<a href="lessonform.php">添加课程</a>
+<?php
+}
+?>
+
 </body>
 </html>
