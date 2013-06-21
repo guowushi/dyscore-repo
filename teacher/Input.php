@@ -9,8 +9,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<link href="../css/common.css" rel="stylesheet" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="/libs/bootstrap/css/bootstrap.css">
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+
 <title>成绩录入</title>
  <style type="text/css">
  table{ background-color:#000;}
@@ -56,7 +58,7 @@ input.scoreWidth{
   <p align="center">
 	<?php echo !empty($_SESSION['school']['SchoolName'])?$_SESSION['school']['SchoolName']:""; ?>
 	学校 教师开设课程情况</p> 
-  <table  border="0" cellspacing="1 " cellpadding="0 " width="100%">
+  <table class="table"  cellpadding="0 " width="100%">
   <tr>
     <th name="ID" width="76" scope="col">编号</th>
     <th name="SchoolID" width="76" scope="col">教师编号</th>
@@ -67,8 +69,11 @@ input.scoreWidth{
     <th width="84"  name="Geography"scope="col">操作</th>
   </tr>
   <?php
-  $sql="SELECT * FROM  lessons ";
+  $tid=$_SESSION['user']['ID']; //获取当前教师的编号
+   
    $sql="SELECT * FROM  lessons ";
+   $sql.=" WHERE TeacherID= ".$tid;	
+   
   $rows=$database->query($sql);
   $num=1;
   foreach($rows as $row){
@@ -81,7 +86,7 @@ input.scoreWidth{
 		//$class_info=$database->get("classes",$SCHEMAS['classes'],['ID'=>$row['ClassID']]);
 	//根据班级编号统计班级人数
 	 // $count = $database->count("students", ["classID"=>$row['ClassID']]);55010301
-	 $count = $database->count("students", ["classID"=>$row['ClassID']]); 
+		$count = $database->count("students", ["classID"=>$row['ClassID']]); 
   ?>
   <tr>
     <td><?php echo $num; ?></td>

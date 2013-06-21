@@ -45,9 +45,9 @@ ul{
 //  if($_SESSION['usertype']=='1'){
 ?>
 <ul>
-<li><a href="school.php" target="mainFrame">学校管理</a></li>
-<li><a href="item.php" target="mainFrame">课程管理</a></li>
-<li><a href="item.php" target="mainFrame">年级管理</a></li>
+<li><a href="/admin/school.php" target="mainFrame">学校管理</a></li>
+<li><a href="/admin/item.php" target="mainFrame">学校管理员设置</a></li>
+
 </ul>
 <hr/>
 <?php 
@@ -60,11 +60,11 @@ ul{
 ?>
 <ul>
 <!-- 学校管理员的菜单 -->
-<li><a href="student.php" target="mainFrame">学生管理</a></li>
-<li><a href="classes.php" target="mainFrame">班级管理</a></li>
-<li><a href="teacher.php" target="mainFrame">教师管理</a></li>
+<li><a href="/admin/student.php" target="mainFrame">学生管理</a></li>
+<li><a href="/admin/classes.php" target="mainFrame">班级管理</a></li>
+<li><a href="/admin/teacher.php" target="mainFrame">教师管理</a></li>
 <li><a href="/admin/lesson.php" target="mainFrame">课程管理</a></li>
-<li><a href="unlock.php" target="mainFrame">成绩解锁</a></li>
+<li><a href="/admin/unlock.php" target="mainFrame">成绩解锁</a></li>
 </ul>
 <hr/>
 <?php 
@@ -78,7 +78,8 @@ ul{
 ?>
 <!-- 教师的菜单 -->
 <ul>
-<li><a href="/teacher/input.php" target="mainFrame">成绩录入</a></li>
+	<li><a href="/teacher/input.php" target="mainFrame">成绩录入</a></li>
+	<li><a href="/admin/classes.php" target="mainFrame">班级管理</a></li>
 </ul>
 <hr/>
 <?php 
