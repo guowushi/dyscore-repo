@@ -40,7 +40,17 @@ echo !empty($_SESSION['school']['SchoolName'])?$_SESSION['school']['SchoolName']
 ?></strong>
 成绩管理系统           
 <span class="user_info" >
-	<span>  </span>
+	
+	用户类型：
+	<span class="user_type">
+		<?php  
+	if($_SESSION['usertype']=="2"){
+		echo "学校管理员";
+	}elseif($_SESSION['usertype']=="3"){
+		echo "教师";
+	}
+	?>
+	</span>
 	当前用户：<span class="user_name"> 
 	<?php  
 	if($_SESSION['usertype']=="2"){

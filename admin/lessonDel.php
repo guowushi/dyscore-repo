@@ -1,7 +1,9 @@
 <?php
 	session_start();												// 启用此页面的会话功能
-	require_once '/global.inc';										// 包含系统配置文件
-	require_once ROOT.'/inc/functions.inc';								// 包含通用函数文件
+	require_once '../global.inc';										// 包含系统配置文件
+	//echo $_SERVER["DOCUMENT_ROOT"].'/global.inc';	
+	require_once ROOT.'/inc/functions.php';								// 包含通用函数文件
+	
 	require_once ROOT.'/libs/medoo.min.php'; 						// 引用用medoo框架类，可以简化数据库的操作（数据用户名和密码在此文件中修改） 
 	$database = new medoo("dyscore");								// 连接到dyscore数据库
 ?>
@@ -16,12 +18,19 @@
 	//获取要记录的ID，ID统一使用自动编号的主键.注意大小写
     $ID=$_GET["id"];
 	// 定义并执行删除的SQL语句
- 	$sql="DELETE  FROM schools WHERE ID =".$ID;
+ 	$sql="DELETE  FROM lessons WHERE ID =".$ID;
 	$database->query($sql);
 	// 也可以使用$database->delete("account", ["ID" =>$ID]);
 	// 执行后，跳转到school.php页面
-    alert("删除成功！","school.php");
+    alert("删除成功！","lesson.php");
 
+	
+	
+	function delete($table,$id){
+		global $database;
+		$database->delete($table, ["ID" =>$id]);
+ 
+	}
 ?>
 </body>
 </html>
