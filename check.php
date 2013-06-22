@@ -22,7 +22,9 @@
  $usertype= $_POST["usertype"]; // 获取用户类型
  
  $_SESSION['usertype']=$usertype;
-  
+
+ 
+ 
    //-----管理员类型-------------------------------------------------------
    if($usertype=="2"){
   
@@ -31,7 +33,15 @@
 		$rs = $db->query($sql);
 		$row = $rs->fetch();
 		if($row){
-			 
+			   //获取当前学校
+			   $currentSchool = $database->get("schools", ['ID','SchoolCode','SchoolName'], ["SchoolCode" => $row['SchoolCode']]);
+			   //获取当前用户
+			   $currentUser=$database->get("admins",$SCHEMAS['admins'] , ["ID" => $row['ID']]);
+			   //var_dump($currentUser);
+			   
+				$_SESSION['school']=$currentSchool;
+				 
+				$_SESSION['user']=$currentUser;
 			   $relative_url="admin/default.html";
 				header("Location: ".$relative_url); 
 		}else{
@@ -57,7 +67,7 @@
 			   
 				$_SESSION['school']=$currentSchool;
 				$_SESSION['user']=$currentUser;
-				
+				 
 			   $relative_url="teacher/default.html";
 				header("Location: ".$relative_url); 
 		}else{

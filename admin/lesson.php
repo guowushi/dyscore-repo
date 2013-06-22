@@ -28,15 +28,15 @@ h1{text-align:center;}
 <h1 class="tableHeader">xx 教师的任课信息</h1>
 
 <table class="table" width="100%" >
-	
   <tr>
     <th scope="col"><input type="checkbox" class="SelectAll"></th>
 	<th scope="col">编号</th>
     <th scope="col">学校代码</th>
-	  <th scope="col">教师</th>
+	<th scope="col">教师编号</th>
+	<th scope="col">教师</th>
     <th scope="col">班级代码</th>
+	<th scope="col">班级名称</th>
     <th scope="col">课程</th>
-	
     <th scope="col">操作</th>
   </tr>
   
@@ -45,9 +45,14 @@ h1{text-align:center;}
 	/*
 		定义查询语句,执行该$sql语句，并获去所有记录放到一个二维数组$rows中
 	*/
-	$tid=$_SESSION['user']['ID']; //获取当前教师的编号
 	$sql="select * from lessons "; 
-	$sql.=" WHERE TeacherID= ".$tid;	
+	$sid=$_SESSION['school']['SchoolCode'];								//当前学校编号
+	$sql.=" WHERE SchoolCode= ".$sid;
+	if($_SESSION['usertype']=="3"){
+		$tid=$_SESSION['user']['ID']; 		//获取当前教师的编号
+		$sql.=" AND TeacherID= ".$tid;
+	}
+		
 	$rows=$database->query($sql)->fetchAll();
 	$row_number=1;	
 	// 遍历数组，每行就表示一条记录。访问记录的字段可以使用 $row['字段名']或$row[1]的格式
@@ -55,12 +60,17 @@ h1{text-align:center;}
 	
 	$cid=$row["ClassID"];
 	$class=$database->get('classes',$SCHEMAS['classes'],['ClassCode'=>$cid]);
+	$tid=$row['TeacherID'];
+	$teacher_info=$database->get('teachers',$SCHEMAS['teachers'],['ID'=>$tid]);
+	
   ?>
   <tr>
     <td><input type="checkbox" class="Selected"></td>
 	<td><?php  echo $row_number; ?></td>
     <td><?php  echo $row["SchoolCode"]; ?></td>
-	<td><?php  echo $row["TeacherID"]; ?></td>    
+	<td><?php  echo $row["TeacherID"]; ?></td>
+	<td><?php  echo $teacher_info["TeacherName"]; ?></td>    
+	<td><?php  echo $row["ClassID"]; ?></td>
 	<td><?php  echo $class["ClassName"]; ?></td>
     <td><?php  echo $row["Lesson"]; ?></td>
      <td>

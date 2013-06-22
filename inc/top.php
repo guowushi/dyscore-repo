@@ -42,7 +42,13 @@ echo !empty($_SESSION['school']['SchoolName'])?$_SESSION['school']['SchoolName']
 <span class="user_info" >
 	<span>  </span>
 	当前用户：<span class="user_name"> 
-	<?php  echo $_SESSION['user']['TeacherName'];?>
+	<?php  
+	if($_SESSION['usertype']=="2"){
+		echo $_SESSION['user']['AdminName'];
+	}elseif($_SESSION['usertype']=="3"){
+		echo $_SESSION['user']['TeacherName'];
+	}
+	?>
 	</span>
 </span>
 </p>
