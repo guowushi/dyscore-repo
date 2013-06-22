@@ -52,7 +52,7 @@ h1{text-align:center;}
 		$tid=$_SESSION['user']['ID']; 		//获取当前教师的编号
 		$sql.=" AND TeacherID= ".$tid;
 	}
-		
+	$sql.=" ORDER By TeacherID";	
 	$rows=$database->query($sql)->fetchAll();
 	$row_number=1;	
 	// 遍历数组，每行就表示一条记录。访问记录的字段可以使用 $row['字段名']或$row[1]的格式
