@@ -39,11 +39,4 @@ else
 echo $str.='</script>';
 }
 
-
-$SYSTEM="xxx";
-
-
-$LEVEL=array("1"=>"一年级",
-			 "2"=>"二年级",
-			 "3"=>"三年级");
 ?>

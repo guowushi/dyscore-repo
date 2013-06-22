@@ -1,10 +1,16 @@
 <?php
 	session_start();												// 启用此页面的会话功能
 	require_once '../global.inc';										// 包含系统配置文件
+
+	
 	require_once ROOT.'/inc/functions.php';								// 包含通用函数文件
 	require_once ROOT.'/libs/medoo.min.php'; 						// 引用用medoo框架类，可以简化数据库的操作（数据用户名和密码在此文件中修改） 
 	$database = new medoo("dyscore");								// 连接到dyscore数据库
 	$conf=require_once( ROOT . '/inc/system.conf.php');  
+	
+	if(empty($_SESSION['usertype'])){
+		//echo "<script>window.location='/login.php'</script>";
+	}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -70,7 +76,6 @@ input.scoreWidth{
   </tr>
   <?php
   $tid=$_SESSION['user']['ID']; //获取当前教师的编号
-   
    $sql="SELECT * FROM  lessons ";
    $sql.=" WHERE TeacherID= ".$tid;	
    
