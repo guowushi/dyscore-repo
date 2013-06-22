@@ -13,9 +13,9 @@ $ROLES=array(
 				"4"=>"学生"
 				);
 //定义年级
-$LEVEL=array("1"=>"一年级",
-			 "2"=>"二年级",
-			 "3"=>"三年级");
+$LEVEL=array("1"=>"初一",
+			 "2"=>"初二",
+			 "3"=>"初三");
 //定义学期			 
 $TERMS=array("2012-2013-2学期","2012-2013-1学期");
 
@@ -43,5 +43,8 @@ $SCHEMAS=array(
 			'teachers'=>['ID','SchoolCode','TeacherCode','TeacherName','Email','Username','Password','Items','TeacherRole','comment'],
 			'scores'=>['ID','StudentID','Term','Chinese','Math','English','Politics','History','Geography','Biological','Physical','Chemistry']
 			);
+			
+			
+
 			
 ?>

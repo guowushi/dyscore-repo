@@ -48,6 +48,11 @@ echo !empty($_SESSION['school']['SchoolName'])?$_SESSION['school']['SchoolName']
 		echo "学校管理员";
 	}elseif($_SESSION['usertype']=="3"){
 		echo "教师";
+	}elseif($_SESSION['usertype']=="1"){
+		echo "超级管理员";
+	
+	}else{
+		echo "未知";
 	}
 	?>
 	</span>
@@ -57,6 +62,8 @@ echo !empty($_SESSION['school']['SchoolName'])?$_SESSION['school']['SchoolName']
 		echo $_SESSION['user']['AdminName'];
 	}elseif($_SESSION['usertype']=="3"){
 		echo $_SESSION['user']['TeacherName'];
+	}elseif($_SESSION['usertype']=="1"){
+		
 	}
 	?>
 	</span>
