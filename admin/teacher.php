@@ -25,26 +25,10 @@ h1{text-align:center;}
  <form method="post" action="">
       <h1>各校教师信息表</h1>
       <div class="head">
-      <label>请选择教师所属学校：</label>
-      <select name="SchoolName">
-		 <?php 
-	
-	/*
-		定义查询语句,执行该$sql语句，并获去所有记录放到一个二维数组$rows中
-	*/
-	$sql="select * from schools ";  	
-	$rows=$database->query($sql)->fetchAll();
-	$row_number=1;	
-	// 遍历数组，每行就表示一条记录。访问记录的字段可以使用 $row['字段名']或$row[1]的格式
-	foreach($rows  as $row)
-		{
-  ?>
-           <option value="<?php echo $row["SchoolCode"];  ?>"><?php echo $row["ID"].$row["SchoolName"];  ?></option>
-         <?php
-                }
-			?></select>
+     
       </div>
-      <table width="100%" border="0" cellspacing="1" cellpadding="0">
+
+	  <table width="100%">
 	
   <tr>
     <th scope="col" name="ID">编号</th>
@@ -57,11 +41,12 @@ h1{text-align:center;}
     <th scope="col" name="caozuo">操作</th>
   </tr>
   <?php 
-	
+	$current_school=$_SESSION['school']['SchoolCode'];
 	/*
 		定义查询语句,执行该$sql语句，并获去所有记录放到一个二维数组$rows中
 	*/
-	$sql="select * from teachers ";  	
+	$sql="select * from teachers ";  
+	$sql.="  WHERE SchoolCode=".$current_school;	
 	$rows=$database->query($sql)->fetchAll();
 	$row_number=1;	
 	// 遍历数组，每行就表示一条记录。访问记录的字段可以使用 $row['字段名']或$row[1]的格式

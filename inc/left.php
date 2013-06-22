@@ -46,7 +46,7 @@ ul{
 ?>
 <ul>
 <li><a href="/admin/school.php" target="mainFrame">学校管理</a></li>
-<li><a href="/admin/item.php" target="mainFrame">学校管理员设置</a></li>
+<li><a href="/admin/admin.php" target="mainFrame">学校管理员设置</a></li>
 
 </ul>
 <hr/>
@@ -64,7 +64,7 @@ ul{
 <li><a href="/admin/classes.php" target="mainFrame">班级管理</a></li>
 <li><a href="/admin/teacher.php" target="mainFrame">教师管理</a></li>
 <li><a href="/admin/lesson.php" target="mainFrame">课程管理</a></li>
-<li><a href="/admin/unlock.php" target="mainFrame">成绩解锁</a></li>
+<li><a href="/admin/scores.php" target="mainFrame">成绩解锁</a></li>
 </ul>
 <hr/>
 <?php 

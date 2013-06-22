@@ -28,36 +28,34 @@ h1{text-align:center;}
 <form action="" method="post">
 选择学校：
 <select name="SchoolName">
-		 <?php 
-	
-	/*
-		定义查询语句,执行该$sql语句，并获去所有记录放到一个二维数组$rows中
-	*/
-	$sql="select * from schools ";  	
-	$rows=$database->query($sql)->fetchAll();
-	$row_number=1;	
-	// 遍历数组，每行就表示一条记录。访问记录的字段可以使用 $row['字段名']或$row[1]的格式
-	foreach($rows  as $row)
-		{
-  ?>
+ <?php 
+$sql="select * from schools ";  	
+$rows=$database->query($sql)->fetchAll();
+$row_number=1;	
+// 遍历数组，每行就表示一条记录。访问记录的字段可以使用 $row['字段名']或$row[1]的格式
+foreach($rows  as $row)
+{
+?>
            <option value="<?php echo $row["ID"];  ?>"><?php echo $row["ID"].$row["SchoolName"];  ?></option>
-         <?php
-                }
-			?>
-         </select>
-选择年级：<select name="Level">
-  <option>初一</option>
-  <option>初二</option>
-  <option>初三</option>
+<?php
+ }
+?>
+ </select>
+选择年级：
+<select name="Level">
+	<?php
+		foreach($LEVEL as $l){
+			echo "<option value=".$l.">".$l."</option>";
+		}
+	
+	?>
 </select>
 选择班级：
 <select name="Classname">
-		 <?php 
-	
-	/*
-		定义查询语句,执行该$sql语句，并获去所有记录放到一个二维数组$rows中
-	*/
-	$sql="select * from classes ";  	
+<?php 
+
+	$sql="select * from classes "; 
+		
 	$rows=$database->query($sql)->fetchAll();
 	$row_number=1;	
 	// 遍历数组，每行就表示一条记录。访问记录的字段可以使用 $row['字段名']或$row[1]的格式
@@ -68,7 +66,7 @@ h1{text-align:center;}
          <?php
                 }
 			?>
-         </select>
+   </select>
 
 <input name="BtnSearch" type="submit" value="查找"/>
 <input value="新增" type="button" name="BtnNew" />
@@ -87,11 +85,12 @@ h1{text-align:center;}
     <th scope="col">操作</th>
   </tr>
   <?php 
-	
+	$current_school=$_SESSION['school']['SchoolCode'];
 	/*
 		定义查询语句,执行该$sql语句，并获去所有记录放到一个二维数组$rows中
 	*/
-	$sql="select * from students ";  	
+	$sql="select * from students "; 
+	$sql.="  WHERE SchoolCode=".$current_school;
 	$rows=$database->query($sql)->fetchAll();
 	$row_number=1;	
 	// 遍历数组，每行就表示一条记录。访问记录的字段可以使用 $row['字段名']或$row[1]的格式
