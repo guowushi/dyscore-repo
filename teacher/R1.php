@@ -1,7 +1,7 @@
  <?php
 	
 	session_start();												// 启用此页面的会话功能
-	require_once 'global.inc';										// 包含系统配置文件
+	require_once '../global.inc';										// 包含系统配置文件
 	require_once ROOT.'/inc/functions.php';								// 包含通用函数文件
 	require_once ROOT.'/libs/medoo.min.php'; 						// 引用用medoo框架类，可以简化数据库的操作（数据用户名和密码在此文件中修改） 
 	$database = new medoo("dyscore");								// 连接到dyscore数据库
