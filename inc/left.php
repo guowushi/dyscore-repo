@@ -38,11 +38,11 @@ ul{
 </head>
 
 <body>
-<br/>
+
 
 <!-- 超级管理员的菜单 -->
 <?php 
-//  if($_SESSION['usertype']=='1'){
+  if($_SESSION['usertype']=='1'){
 ?>
 <ul>
 <li><a href="/admin/school.php" target="mainFrame">学校管理</a></li>
@@ -51,15 +51,15 @@ ul{
 </ul>
 <hr/>
 <?php 
-  //}
+ }
 ?>
 
-
+<!-- 学校管理员的菜单 -->
 <?php 
- // if($_SESSION['usertype']=='2'){
+ if($_SESSION['usertype']=='2'){
 ?>
 <ul>
-<!-- 学校管理员的菜单 -->
+
 <li><a href="/admin/student.php" target="mainFrame">学生管理</a></li>
 <li><a href="/admin/classes.php" target="mainFrame">班级管理</a></li>
 <li><a href="/admin/teacher.php" target="mainFrame">教师管理</a></li>
@@ -68,34 +68,33 @@ ul{
 </ul>
 <hr/>
 <?php 
- // }
+ }
 ?>
 
 
-
-<?php 
- // if($_SESSION['usertype']=='3'){
-?>
 <!-- 教师的菜单 -->
+<?php 
+ if($_SESSION['usertype']=='3'){
+?>
 <ul>
 	<li><a href="/teacher/input.php" target="mainFrame">成绩录入</a></li>
 	<li><a href="/admin/classes.php" target="mainFrame">班级管理</a></li>
 </ul>
 <hr/>
 <?php 
- // }
-?>
-
-<?php 
-  //if($_SESSION['usertype']=='4'){
+ }
 ?>
 <!-- 学生的菜单 -->
+<?php 
+if($_SESSION['usertype']=='4'){
+?>
 <ul>
 <li><a href="/teacher/input.php" target="mainFrame">个人信息录入</a></li>
 </ul>
 <?php 
-  //}
+}
 ?>
+<!-- 都要有的菜单 -->
 <ul>
 	<li><a href="/logout.php">退出</a></li> 
 </ul>

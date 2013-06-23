@@ -12,49 +12,88 @@
 <link href="../css/common.css" rel="stylesheet" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="/libs/bootstrap/css/bootstrap.css">
-<title>成绩录入</title>
- <style type="text/css">
-  
- p{
-	font-size:16px;
-	font-weight:bold;
+<script type="text/javascript" src="/js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="/js/jquery.validate.min.js"></script>
+<script type="text/javascript">
+$(function(){
+     			
+	//alert(isValidScore('10 6'));	
+	
+});
+function check(){
+	
+	alert(validate()) ;	
 }
-input.scoreWidth{
-	width:40px;
-	border-bottom-width: 2px;
-	border-top-style: none;
-	border-right-style: none;
-	border-bottom-style: solid;
-	border-left-style: none;
-	border-bottom-color: #800;
-	margin:0px;
+function validate(){
+	var retValue=true;
+	$("input.score").each(function(i){
+   		var current_score= $(this).val();
+		if(!isValidScore(current_score)){
+			alert("'"+current_score+"' 是一个无效的成绩！");
+			$(this).focus();
+			var fooOffset = $(this).offset();
+        	destination = fooOffset.top;
+    		jQuery(document).scrollTop(destination);
+			retValue=false;
+			return false;	
+		}
+ 	});
+	
+	//$("#scoreform").submit();
+	return retValue;	
+}
+function isValidScore(fs){
+	if(isNaN(fs)){
+		 return false;
+	}else if(fs>=0&& fs<=100){
+		 return true;
+	}else{
+		
+		return false;
+	}
 }
 
- </style>
+//
+function lock(){
+	if(confirm("真的要锁定吗？锁定后将无法修改该班的成绩！")){
+			return validate();
+		}else{
+			return false;
+		}
+}
+</script>
+<title>成绩录入</title>
 
 <body>
+<?php
+	  //(1)获取任务ID获取当前课程信息
+	  $lesson_id=$_GET['lesson'];
+	  $lesson=$database->get('lessons',$SCHEMAS['lessons'],['ID'=>$lesson_id]);
+	  //var_dump($lesson);
+	   
 
+?>
 
   
-  <form method="POST" action="inputSave.php"> 
-  <p align="center">xx学期xx课程xx班级 学生成绩录入</p> 
+  <form method="POST" action="inputSave.php" id="scoreform"> 
+  <p align="center">
+	学期:<?php echo $lesson['Term']; ?> / 
+	课程:<?php echo $lesson['Lesson']; ?>/
+	班级:<?php echo $lesson['ClassID']; ?> /
+	成绩录入</p> 
   <table  class="table" width="100%">
   <tr>
-    <th   width="76" scope="col">编号</th>
-	<th   width="76" scope="col">学期</th>
+    <th   width="24" scope="col">编号</th>
+	<th   width="50" scope="col">学期</th>
 	<th   width="76" scope="col">科目</th>
-    <th   width="76" scope="col">学号</th>
+    <th   width="76" scope="col">考号</th>
     <th width="76"   scope="col">姓名</th>
     <th width="84"  scope="col">成绩</th>
    
   </tr>
   <?php 
 	  
-	  //(1)获取任务ID获取当前课程信息
-	  $lesson_id=$_GET['lesson'];
-	  $lesson=$database->get('lessons',$SCHEMAS['lessons'],['ID'=>$lesson_id]);
-	  //var_dump($lesson);
-	   
+
 	  //(2)根据班级编号获取班级信息
 		$classid=$lesson['ClassID']; 
 	   $sql=" SELECT * FROM Classes  ";  
@@ -107,32 +146,27 @@ input.scoreWidth{
   ?>
   <tr>
 	
-    <td><?php echo $num;?><input type="hidden" name="SID[]" value="<?php echo $current_student_id; ?>"></a></td>
+    <td><?php echo $num;?><input type="hidden" name="SID[]" value="<?php echo $current_student_id; ?>"></td>
 	 <td><?php echo $current_term;?></td>
 	 <td><?php echo $current_item;?></td>
-    <td><?php echo $row['StudentCode'];?></td>
+	 
+    <td><?php echo $row['CandidateID'];?></td>
     <td><?php echo $row['StudentName'];?></td>
     <td>
 	<?php
 	if($student_score && $student_score['status']=='1'){
 				//情况3
-				
 			 echo $student_score['Item'];
 			
 			}else{
 			?>
-			 <input name="score[<?php echo $current_student_id; ?>]" type="text"  class="scoreWidth"   value="<?php echo $student_score['Item'] ?>" />
+			 <input name="score[<?php echo $current_student_id; ?>]" type="text"  class="score"   value="<?php echo $student_score['Item'] ?>" />
 		<?php
 			}
 			 //var_dump($student_score);
 	
 	
 	?>
-	 
-      
-	  
-	 
-    
       
   </td>
   </tr>
@@ -144,8 +178,8 @@ input.scoreWidth{
 </table>
 	<input type="hidden" value="<?php echo $current_item; ?>" name="item" />
   <input type="hidden" value="<?php echo $current_term; ?>" name="Term" />
-  <input type="submit"   value="保存" />
-  <input type="submit"   value="提交锁定" />
+  <input type="submit"   value="保存" 	onclick="return validate()" />
+  <input type="submit"   value="提交锁定" onclick="return lock();" />
   <a href="/teacher/input.php">返回</a>
 </form>
 

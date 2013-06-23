@@ -87,7 +87,7 @@ if(isset($_POST['SID'])){
 		
 		
 		}
-		//alert("修改成功",$_SERVER["HTTP_REFERER"]);
+		alert("修改成功",$_SERVER["HTTP_REFERER"]);
   }
 
  }
